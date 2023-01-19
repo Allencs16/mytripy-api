@@ -1,5 +1,7 @@
 package com.breallencs.mytripyapi.modules.user;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,11 @@ public class UserController {
   @GetMapping(path = "/findUser/{userName}")
   public User findByUsername(@PathVariable String userName){
     return userRepository.findByUserName(userName);
+  }
+
+  @GetMapping
+  public List<User> findAll(){
+    return userRepository.findAll();
   }
   
 }
