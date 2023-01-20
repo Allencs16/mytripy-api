@@ -2,6 +2,7 @@ package com.breallencs.mytripyapi.modules.user;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class UserController {
     this.userRepository = userRepository;
   }
   
-  @GetMapping(path = "/findUser/{userName}")
+  @GetMapping(path = "/{userName}")
   public User findByUsername(@PathVariable String userName){
     return userRepository.findByUserName(userName);
   }
@@ -25,6 +26,13 @@ public class UserController {
   @GetMapping
   public List<User> findAll(){
     return userRepository.findAll();
+  }
+
+  @DeleteMapping(path = "/{id}")
+  public User deleteUser(@PathVariable Long id){
+    User user = userRepository.findById(id);
+    userRepository.delete(user);
+    return user;
   }
   
 }
