@@ -1,12 +1,21 @@
 package com.breallencs.mytripyapi.modules.user;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user", schema = "public")
 @Data @AllArgsConstructor @NoArgsConstructor
-public class User {
+public class User implements Serializable{
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +40,6 @@ public class User {
   private String password;
   
   private LocalDateTime CreatedAt;
+
+  private Boolean isActive;
 }

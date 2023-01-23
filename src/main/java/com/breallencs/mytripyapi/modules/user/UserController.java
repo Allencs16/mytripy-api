@@ -1,6 +1,7 @@
 package com.breallencs.mytripyapi.modules.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class UserController {
   }
   
   @GetMapping(path = "/{userName}")
-  public User findByUsername(@PathVariable String userName){
+  public Optional<User> findByUsername(@PathVariable String userName){
     return userRepository.findByUserName(userName);
   }
 
