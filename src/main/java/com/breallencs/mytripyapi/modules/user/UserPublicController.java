@@ -25,7 +25,7 @@ public class UserPublicController {
 
     BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
     User userNew = new User();
-    userNew.setUserName(user.getUserName());
+    userNew.setUsername(user.getUsername());
     userNew.setPassword(bc.encode(user.getPassword()));
     userNew.setEmail(user.getEmail());
     userNew.setName(user.getName());

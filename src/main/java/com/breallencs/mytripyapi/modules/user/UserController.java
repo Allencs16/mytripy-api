@@ -20,8 +20,8 @@ public class UserController {
   }
   
   @GetMapping(path = "/{userName}")
-  public Optional<User> findByUsername(@PathVariable String userName){
-    return userRepository.findByUserName(userName);
+  public User findByUsername(@PathVariable String userName){
+    return userRepository.findByUsername(userName);
   }
 
   @GetMapping

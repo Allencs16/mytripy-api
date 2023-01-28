@@ -15,18 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class JwtUserDetails implements UserDetails{
   
   private final Long id;
-	private final String email;
+	private final String username;
 	private final String password;
 
-	public JwtUserDetails(Long id, String email, String password) {
+	public JwtUserDetails(Long id, String username, String password) {
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 
 	public JwtUserDetails(User user) {
 		this.id = user.getId();
-		this.email = user.getEmail();
+		this.username = user.getUsername();
 		this.password = user.getPassword();
 	}
 
@@ -37,7 +37,7 @@ public class JwtUserDetails implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		return email;
+		return username;
 	}
 
 	@JsonIgnore
@@ -71,7 +71,6 @@ public class JwtUserDetails implements UserDetails{
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    // TODO Auto-generated method stub
-    return null;
+    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
   }
 }

@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class JwtTokenRequest implements Serializable {
 
-	private String email;
+	private String username;
 	private String password;
 
 	public JwtTokenRequest() {
 		super();
 	}
 
-	public JwtTokenRequest(String email, String password) {
-		this.setUsername(email);
+	public JwtTokenRequest(String username, String password) {
+		this.setUsername(username);
 		this.setPassword(password);
 	}
 
 	public String getUsername() {
-		return this.email;
+		return this.username;
 	}
 
-	public void setUsername(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

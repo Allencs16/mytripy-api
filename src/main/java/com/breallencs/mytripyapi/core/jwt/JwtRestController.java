@@ -54,12 +54,12 @@ public class JwtRestController {
     return ResponseEntity.ok(new JwtTokenResponse(token, userDetails.getAuthorities()));
   }
 
-  private void authenticate(String email, String password) throws AuthenticationException{
-    Objects.requireNonNull(email);
+  private void authenticate(String username, String password) throws AuthenticationException{
+    Objects.requireNonNull(username);
     Objects.requireNonNull(password);
 
     try {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     } catch (DisabledException e) {
       throw new AuthenticationException("User_disabled");
     } catch (BadCredentialsException e) {

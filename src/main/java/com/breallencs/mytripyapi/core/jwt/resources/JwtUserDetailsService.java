@@ -20,15 +20,15 @@ public class JwtUserDetailsService implements UserDetailsService{
 	}
 
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		
-		Optional<User> user = userRepository.findByEmail(email);
-		
-		if (!user.isPresent()) {
-			throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", email));
-		}
-		
-		return user.map(JwtUserDetails::new).get();
-	}
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username);
+
+    if (user == null) {
+      throw new UsernameNotFoundException(username);
+    }
+
+    return new JwtUserDetails(user);
+  }
+	
 }
+
