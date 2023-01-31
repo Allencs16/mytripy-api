@@ -30,6 +30,7 @@ public class UserPublicController {
     userNew.setEmail(user.getEmail());
     userNew.setName(user.getName());
     userNew.setCreatedAt(LocalDateTime.now());
+    userNew.setIsActive(true);
     userRepository.saveAndFlush(userNew);
     
     return userNew;

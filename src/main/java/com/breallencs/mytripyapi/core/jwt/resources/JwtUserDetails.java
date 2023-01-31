@@ -46,11 +46,10 @@ public class JwtUserDetails implements UserDetails{
 		return true;
 	}
 
-	@JsonIgnore
 	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
 	@JsonIgnore
 	@Override
