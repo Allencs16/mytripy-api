@@ -38,6 +38,7 @@ public class JwtRestController {
   public ResponseEntity efetuarLogin(@RequestBody JwtTokenRequest dados) throws AuthenticationException  {
     var authenticationToken = new UsernamePasswordAuthenticationToken(dados.getUsername(), dados.getPassword());
     var authentication = authenticationManager.authenticate(authenticationToken);
-    return ResponseEntity.ok(authentication.isAuthenticated());
+    var tokenJWT = jwtTokenUtil.gerarToken((UserDetails) authentication.getPrincipal());
+    return ResponseEntity.ok(tokenJWT);
   }
 }
