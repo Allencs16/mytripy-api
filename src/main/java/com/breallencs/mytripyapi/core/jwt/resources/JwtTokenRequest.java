@@ -1,22 +1,16 @@
 package com.breallencs.mytripyapi.core.jwt.resources;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class JwtTokenRequest implements Serializable {
+@Data @AllArgsConstructor @NoArgsConstructor
+public class JwtTokenRequest {
+  
+  private String username;
+  private String password;
 
-	private String username;
-	private String password;
-
-	public JwtTokenRequest() {
-		super();
-	}
-
-	public JwtTokenRequest(String username, String password) {
-		this.setUsername(username);
-		this.setPassword(password);
-	}
-
-	public String getUsername() {
+  public String getUsername() {
 		return this.username;
 	}
 
@@ -31,5 +25,5 @@ public class JwtTokenRequest implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+  
 }
