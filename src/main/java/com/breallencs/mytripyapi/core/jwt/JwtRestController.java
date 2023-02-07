@@ -24,6 +24,8 @@ import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenRequest;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.user.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 public class JwtRestController {
   
@@ -53,7 +55,6 @@ public class JwtRestController {
     
     authenticate(usuario.get().getUsername(), usuario.get().getPassword());
     
-	
 		return ResponseEntity.ok("");
 	}
 
