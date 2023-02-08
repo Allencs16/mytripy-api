@@ -36,8 +36,19 @@ public class SecurityFilter extends OncePerRequestFilter {
   private String tokenHeader;
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain){
-    
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
+    var token = recuperaToken(request);
+    var tokenSubject = jwtTokenUtil.getSubject(token);
+    System.out.println(tokenSubject);
+    chain.doFilter(request, response);
+  }
+
+  private String recuperaToken(HttpServletRequest request) {
+    var authorizationHeader = request.getHeader("Authorization");
+    if(authorizationHeader == null){
+      throw new RuntimeException("Token is not present");
+    }
+    return authorizationHeader.replace("Bearer ", "");
   }
 
 }

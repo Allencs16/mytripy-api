@@ -2,6 +2,7 @@ package com.breallencs.mytripyapi.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -23,7 +24,7 @@ public class SecurityConfiguration{
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests((authz) -> authz.anyRequest().authenticated()).httpBasic(withDefaults());
+    http.authorizeHttpRequests((authz) -> authz.anyRequest().authenticated());
     http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     return http.build();
@@ -31,7 +32,7 @@ public class SecurityConfiguration{
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/public", "/authenticate");
+    return (web) -> web.ignoring().requestMatchers("/public", "/authenticate", "/user");
   }
 
   @Bean

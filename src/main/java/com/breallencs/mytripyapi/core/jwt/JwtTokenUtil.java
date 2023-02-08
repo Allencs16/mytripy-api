@@ -9,9 +9,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.impl.ClaimsHolder;
-import com.auth0.jwt.interfaces.Claim;
-import com.breallencs.mytripyapi.modules.user.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
