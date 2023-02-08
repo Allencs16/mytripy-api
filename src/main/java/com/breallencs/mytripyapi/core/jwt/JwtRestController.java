@@ -1,20 +1,15 @@
 package com.breallencs.mytripyapi.core.jwt;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenRequest;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.user.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @RestController
 public class JwtRestController {
@@ -41,6 +34,9 @@ public class JwtRestController {
   @Autowired
   private UserDetailsService jwtUserDetailsService;
 
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
   @Autowired
   private UserRepository userRepository;
 
@@ -48,14 +44,12 @@ public class JwtRestController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest) throws AuthenticationException {
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-		
-		Optional<User> usuario = userRepository.findByUsername(authenticationRequest.getUsername());
+    
+    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+		var token = jwtTokenUtil.gerarToken(userDetails);
     
-    authenticate(usuario.get().getUsername(), usuario.get().getPassword());
-    
-		return ResponseEntity.ok("");
+		return ResponseEntity.ok(token);
 	}
 
   private void authenticate(String username, String password) {

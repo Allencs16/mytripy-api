@@ -31,7 +31,7 @@ public class SecurityConfiguration{
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/public", "/authenticate", "/user");
+    return (web) -> web.ignoring().requestMatchers("/public", "/authenticate");
   }
 
   @Bean
@@ -40,7 +40,7 @@ public class SecurityConfiguration{
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder() {
+  public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 

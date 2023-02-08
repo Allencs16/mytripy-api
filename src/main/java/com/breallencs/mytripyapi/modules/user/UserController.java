@@ -19,10 +19,10 @@ public class UserController {
     this.userRepository = userRepository;
   }
   
-  // @GetMapping(path = "/{userName}")
-  // public User findByUsername(@PathVariable String userName){
-  //   return userRepository.findByUsername(userName);
-  // }
+  @GetMapping(path = "/{userName}")
+  public Optional<User> findByUsername(@PathVariable String userName){
+    return userRepository.findByUsername(userName);
+  }
 
   @GetMapping
   public List<User> findAll(){
