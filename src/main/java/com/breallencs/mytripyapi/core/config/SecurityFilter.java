@@ -37,12 +37,17 @@ public class SecurityFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
-    var token = recuperaToken(request);
-    var tokenSubject = jwtTokenUtil.getSubject(token);
-    System.out.println(tokenSubject);
+    //todo: corrigir esse If;
+    var path = request.getServletPath();
+    System.out.println(path);
+    if(path == "/authenticate"){
+      var token = recuperaToken(request);
+      var tokenSubject = jwtTokenUtil.getSubject(token);
+    }
+    
     chain.doFilter(request, response);
   }
-
+ 
   private String recuperaToken(HttpServletRequest request) {
     var authorizationHeader = request.getHeader("Authorization");
     if(authorizationHeader == null){
