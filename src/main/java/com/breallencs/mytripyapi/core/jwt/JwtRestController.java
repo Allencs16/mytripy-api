@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenRequest;
+import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenResponse;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.user.UserRepository;
 
@@ -44,12 +45,14 @@ public class JwtRestController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest) throws AuthenticationException {
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		var jsonResponse = new JwtTokenResponse();
     
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		var token = jwtTokenUtil.gerarToken(userDetails);
+		jsonResponse.setToken(token);
     
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok(jsonResponse);
 	}
 
   private void authenticate(String username, String password) {

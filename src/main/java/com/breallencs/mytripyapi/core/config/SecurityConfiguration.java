@@ -19,6 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration{
 
+  @Autowired
+  private SecurityFilter securityFilter;
+  
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.csrf().disable()
@@ -26,12 +29,13 @@ public class SecurityConfiguration{
       .and().authorizeHttpRequests()
       .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
       .anyRequest().authenticated()
-      .and().build();
+      .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+      .build();
   }
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/public", "/authenticate", "/user");
+    return (web) -> web.ignoring().requestMatchers("/public/user/create", "/authenticate");
   }
 
   @Bean

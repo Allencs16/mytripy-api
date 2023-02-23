@@ -37,12 +37,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
-    //todo: corrigir esse If;
-    var path = request.getServletPath();
-    System.out.println(path);
-    if(path == "/authenticate"){
+    if(!request.getRequestURL().toString().contains("/authenticate") || !request.getRequestURL().toString().contains("/public/user/create")){
       var token = recuperaToken(request);
-      var tokenSubject = jwtTokenUtil.getSubject(token);
+      if(token != null){
+        var tokenSubject = jwtTokenUtil.getSubject(token);
+        var usuario = jwtUserDetailsService.loadUserByUsername(tokenSubject);
+
+        var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+      }
     }
     
     chain.doFilter(request, response);
