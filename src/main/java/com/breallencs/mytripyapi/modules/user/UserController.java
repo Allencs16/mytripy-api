@@ -21,8 +21,8 @@ public class UserController {
   }
   
   @GetMapping(path = "/{userName}")
-  public Optional<User> findByUsername(@PathVariable String userName){
-    return userRepository.findByUsername(userName);
+  public User findByUsername(@PathVariable String userName){
+    return userRepository.findByUsername(userName).orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
   }
 
   @GetMapping
