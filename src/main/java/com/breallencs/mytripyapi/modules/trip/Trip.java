@@ -29,5 +29,5 @@ public class Trip {
   private String coordinates;
   
   @ManyToOne
-  private User usuario;
+  private User user;
 }

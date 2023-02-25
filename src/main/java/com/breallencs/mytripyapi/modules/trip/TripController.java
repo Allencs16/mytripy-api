@@ -32,7 +32,7 @@ public class TripController {
     Trip trip = new Trip();
     trip.setName(tripDto.getName());
     trip.setPlace(tripDto.getPlace());
-    trip.setUsuario(userRepository.findById(tripDto.getIdUsuario()));
+    trip.setUser(userRepository.findById(tripDto.getIdUsuario()));
     tripRepository.saveAndFlush(trip);
     return trip;
   }
