@@ -1,6 +1,6 @@
-package com.breallencs.mytripyapi.modules.trip;
+package com.breallencs.mytripyapi.modules.friends;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import com.breallencs.mytripyapi.modules.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -9,33 +9,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name = "trip", schema = "public")
+@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trip {
+public class Friends {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
-  private String description;
-  private Boolean isQuiet;
-  private Float price;
-  private String place;
-  private LocalDateTime createdAt;
-  
-  private String coordinates;
-  
-  @ManyToOne
-  @JsonBackReference
-  private User user;
+  // @JsonBackReference
+  // @ManyToOne
+  // private User user1;
+
+  // @ManyToMany
+  // private List<User> user2;
 }

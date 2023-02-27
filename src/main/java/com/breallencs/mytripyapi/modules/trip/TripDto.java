@@ -10,4 +10,9 @@ public class TripDto {
   private String name;
   private String place;
   private Long idUsuario;
+  private String coordinates;
+  private String description;
+  private Boolean isQuiet;
+  private Float price;
+  
 }
