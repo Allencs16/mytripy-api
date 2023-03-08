@@ -37,7 +37,14 @@ public class SecurityFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
-    if(!request.getRequestURL().toString().contains("/authenticate")){
+    boolean isPublic = false;
+    if(request.getRequestURL().toString().contains("/authenticate")){
+      isPublic = true;
+    }
+    if(request.getRequestURL().toString().contains("/public/user/create")){
+      isPublic = true;
+    }
+    if(!isPublic){
       var token = recuperaToken(request);
       if(token != null){
         var tokenSubject = jwtTokenUtil.getSubject(token);
