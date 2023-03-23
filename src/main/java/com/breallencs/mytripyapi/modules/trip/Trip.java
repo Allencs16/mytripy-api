@@ -27,10 +27,15 @@ public class Trip {
   private Long id;
 
   private String name;
+
   private String description;
+
   private Boolean isQuiet;
+
   private Float price;
+
   private String place;
+
   private LocalDateTime createdAt;
   
   private String coordinates;
