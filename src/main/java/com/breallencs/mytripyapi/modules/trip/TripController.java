@@ -39,13 +39,11 @@ public class TripController {
   @PostMapping()
   public Trip createTrip(@RequestBody TripDto tripDto){
     Trip trip = new Trip();
-    trip.setName(tripDto.getName());
     trip.setPlace(tripDto.getPlace());
     trip.setUser(userRepository.findById(tripDto.getIdUser()));
     trip.setCreatedAt(LocalDateTime.now());
     trip.setCoordinates(tripDto.getCoordinates());
     trip.setDescription(tripDto.getDescription());
-    trip.setIsQuiet(tripDto.getIsQuiet());
     trip.setPrice(tripDto.getPrice());
     tripRepository.saveAndFlush(trip);
     return trip;

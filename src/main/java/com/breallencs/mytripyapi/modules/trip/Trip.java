@@ -29,11 +29,11 @@ public class Trip {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
-
   private String description;
 
-  private Boolean isQuiet;
+  private String state;
+
+  private Double distanceFromSource;
 
   private Float price;
 
