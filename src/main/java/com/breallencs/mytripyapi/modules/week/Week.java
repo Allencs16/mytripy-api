@@ -1,10 +1,8 @@
-package com.breallencs.mytripyapi.modules.trip;
+package com.breallencs.mytripyapi.modules.week;
 
 import java.time.LocalDateTime;
 
-import com.breallencs.mytripyapi.modules.stays.Stays;
 import com.breallencs.mytripyapi.modules.user.User;
-import com.breallencs.mytripyapi.modules.week.Week;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -12,44 +10,35 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "trip", schema = "public")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trip {
+@Table(name = "WEEK", schema = "public")
+public class Week {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  private String name;
+  private Double totalPrice;
 
-  private String description;
+  private Double totalKm;
 
-  private Boolean isQuiet;
+  private Double staysTotal;
 
-  private Float price;
+  private Double foodTotal;
 
-  private String place;
+  private LocalDateTime startDate;
 
-  private LocalDateTime createdAt;
-  
-  private String coordinates;
-  
+  private LocalDateTime endDate;
+
   @ManyToOne
   @JsonBackReference
   private User user;
-
-  @ManyToOne
-  private Week week;
-
-  @OneToOne
-  private Stays stays;
 }
