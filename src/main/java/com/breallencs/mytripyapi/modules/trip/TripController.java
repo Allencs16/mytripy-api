@@ -41,8 +41,6 @@ public class TripController {
     Trip trip = new Trip();
     trip.setPlace(tripDto.getPlace());
     trip.setUser(userRepository.findById(tripDto.getIdUser()));
-    trip.setCreatedAt(LocalDateTime.now());
-    trip.setCoordinates(tripDto.getCoordinates());
     trip.setDescription(tripDto.getDescription());
     trip.setPrice(tripDto.getPrice());
     tripRepository.saveAndFlush(trip);

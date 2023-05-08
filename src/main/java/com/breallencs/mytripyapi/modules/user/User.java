@@ -2,7 +2,6 @@ package com.breallencs.mytripyapi.modules.user;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

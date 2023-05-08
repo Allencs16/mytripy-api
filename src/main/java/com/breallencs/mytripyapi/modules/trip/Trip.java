@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.breallencs.mytripyapi.modules.stays.Stays;
 import com.breallencs.mytripyapi.modules.user.User;
+import com.breallencs.mytripyapi.modules.vehicles.Vehicles;
 import com.breallencs.mytripyapi.modules.week.Week;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -39,9 +40,9 @@ public class Trip {
 
   private String place;
 
-  private LocalDateTime createdAt;
-  
-  private String coordinates;
+  private LocalDateTime startDay;
+
+  private LocalDateTime endDay;
   
   @ManyToOne
   @JsonBackReference
@@ -52,4 +53,7 @@ public class Trip {
 
   @OneToOne
   private Stays stays;
+
+  @OneToOne
+  private Vehicles vehicle;
 }
