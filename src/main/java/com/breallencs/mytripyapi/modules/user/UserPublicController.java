@@ -21,7 +21,7 @@ public class UserPublicController {
   }
 
   @PostMapping(value="/create")
-  public User createUser(@RequestBody User user) {
+  public User createUser(@RequestBody UserDTO user) {
 
     BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
     User userNew = new User();

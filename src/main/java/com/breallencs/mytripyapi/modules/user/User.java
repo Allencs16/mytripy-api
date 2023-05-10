@@ -3,6 +3,8 @@ package com.breallencs.mytripyapi.modules.user;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class User implements Serializable{
   private String email;
 
   @Column(nullable = false)
+  @JsonIgnore
   private String password;
   
   private LocalDateTime CreatedAt;

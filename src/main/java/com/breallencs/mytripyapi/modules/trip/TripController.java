@@ -1,6 +1,5 @@
 package com.breallencs.mytripyapi.modules.trip;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -39,11 +38,6 @@ public class TripController {
   @PostMapping()
   public Trip createTrip(@RequestBody TripDto tripDto){
     Trip trip = new Trip();
-    trip.setPlace(tripDto.getPlace());
-    trip.setUser(userRepository.findById(tripDto.getIdUser()));
-    trip.setDescription(tripDto.getDescription());
-    trip.setPrice(tripDto.getPrice());
-    tripRepository.saveAndFlush(trip);
     return trip;
   }
 

@@ -1,8 +1,8 @@
-package com.breallencs.mytripyapi.modules.week;
+package com.breallencs.mytripyapi.modules.expenses;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import com.breallencs.mytripyapi.modules.user.User;
+import com.breallencs.mytripyapi.modules.week.Week;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -16,30 +16,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table(name = "EXPENSES")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "WEEK", schema = "public")
-public class Week {
+@Data
+public class Expenses {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Double totalPrice;
+  private String type;
 
-  private Double totalKm;
+  private Double value;
 
-  private Double budget;
-
-  private Double expenses;
-
-  private LocalDate startDate;
-
-  private LocalDate endDate;
-
-  private boolean isCurrent;
+  private LocalDateTime expenseDate;
 
   @ManyToOne
-  private User user;
+  @JsonBackReference
+  private Week week;
 }

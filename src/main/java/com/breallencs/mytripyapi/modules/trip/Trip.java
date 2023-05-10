@@ -1,6 +1,6 @@
 package com.breallencs.mytripyapi.modules.trip;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.breallencs.mytripyapi.modules.stays.Stays;
 import com.breallencs.mytripyapi.modules.user.User;
@@ -36,19 +36,21 @@ public class Trip {
 
   private Double distanceFromSource;
 
-  private Float price;
+  private Double price;
 
   private String place;
 
-  private LocalDateTime startDay;
+  private Double food;
 
-  private LocalDateTime endDay;
+  private LocalDate startDay;
+
+  private LocalDate endDay;
   
-  @ManyToOne
+  @OneToOne
   @JsonBackReference
   private User user;
 
-  @ManyToOne
+  @OneToOne
   private Week week;
 
   @OneToOne

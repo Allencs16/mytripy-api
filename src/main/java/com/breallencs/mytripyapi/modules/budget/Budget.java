@@ -1,6 +1,7 @@
-package com.breallencs.mytripyapi.modules.Money;
+package com.breallencs.mytripyapi.modules.budget;
 
-import com.breallencs.mytripyapi.modules.user.User;
+import com.breallencs.mytripyapi.modules.week.Week;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,19 +13,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
+@Table(name = "BUDGET")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MONEY", schema = "public")
-public class Money {
+public class Budget {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Double money;
+  private String type;
+
+  private Double value;
 
   @ManyToOne
-  private User user;
+  @JsonBackReference
+  private Week week;
 }
