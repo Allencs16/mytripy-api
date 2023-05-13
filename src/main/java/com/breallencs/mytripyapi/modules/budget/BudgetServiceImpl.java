@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.breallencs.mytripyapi.enums.BudgetCategory;
 import com.breallencs.mytripyapi.modules.week.Week;
 import com.breallencs.mytripyapi.modules.week.WeekRepository;
 
@@ -28,7 +29,7 @@ public class BudgetServiceImpl implements BudgetService{
 
     Budget budget = new Budget();
 
-    budget.setType(budgetDTO.getType());
+    budget.setType(BudgetCategory.verifyCategory(budgetDTO.getType()));
     budget.setValue(budgetDTO.getValue());
     budget.setWeek(week);
 
@@ -41,12 +42,32 @@ public class BudgetServiceImpl implements BudgetService{
   }
 
   @Override
-  public ResponseEntity<?> deleteBudget(BudgetDTO budgetDTO) {
-    Double budgetTotal = budgetRepository.totalByWeek(budgetDTO.getWeekId());
-    Week week = weekRepository.findById(budgetDTO.getWeekId()).get();
-    week.setBudget(budgetTotal);
-    budgetRepository.deleteById(budgetDTO.getId());
+  public ResponseEntity<?> deleteBudget(Budget budget) {
+    Double budgetTotal = budgetRepository.totalByWeek(budget.getWeek().getId());
+    Week week = weekRepository.findById(budget.getWeek().getId()).get();
+    week.setBudget(budgetTotal - budget.getValue());
+    week.setTotalPrice(week.getTotalPrice() - budget.getValue());
+    budgetRepository.deleteById(budget.getId());
     return ResponseEntity.ok().body("Deleted sucefully");
+  }
+
+  @Override
+  public Budget editBudget(BudgetDTO budgetDTO) {
+    Budget budget = budgetRepository.findById(budgetDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Budget not found"));
+    Week week = weekRepository.findById(budgetDTO.getWeekId()).get();
+
+    week.setBudget(week.getBudget() - budget.getValue());
+    week.setTotalPrice(week.getTotalPrice() - budget.getValue());
+
+    budget.setType(BudgetCategory.verifyCategory(budgetDTO.getType()));
+    budget.setValue(budgetDTO.getValue());
+
+    week.setBudget(week.getBudget() + budget.getValue());
+    week.setTotalPrice(week.getTotalPrice() + budget.getValue());
+
+    budgetRepository.saveAndFlush(budget);
+
+    return budget;
   }
   
 }

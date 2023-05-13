@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,15 @@ public class BudgetController {
     return budgetService.createBudget(budgetDTO);
   }
 
+  @PutMapping(path = "/{budgetId}")
+  public Budget editBudget(@PathVariable Long budgetId, @RequestBody BudgetDTO budgetDTO){
+    return budgetService.editBudget(budgetDTO);
+  }
+
   @DeleteMapping(path = "/{budgetId}")
   public ResponseEntity<?> deleteBudget(@PathVariable Long budgetId){
-    budgetRepository.deleteById(budgetId);
+    Budget budget = budgetRepository.findById(budgetId).get();
+    budgetService.deleteBudget(budget);
     return ResponseEntity.ok().body("Deleted Sucefully");
   }
 }

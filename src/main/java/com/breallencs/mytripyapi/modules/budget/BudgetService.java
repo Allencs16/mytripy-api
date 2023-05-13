@@ -8,5 +8,7 @@ public interface BudgetService {
 
   Budget createBudget(BudgetDTO budgetDTO);
 
-  ResponseEntity<?> deleteBudget(BudgetDTO budgetDTO);
+  Budget editBudget(BudgetDTO budgetDTO);
+
+  ResponseEntity<?> deleteBudget(Budget budget);
 }

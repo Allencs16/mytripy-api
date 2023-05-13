@@ -19,10 +19,12 @@ public class TripController {
 
   private TripRepository tripRepository;
   private UserRepository userRepository;  
+  private TripService tripService;
 
-  TripController(TripRepository tripRepository, UserRepository userRepository){
+  TripController(TripRepository tripRepository, UserRepository userRepository, TripService tripService){
     this.tripRepository = tripRepository;
     this.userRepository = userRepository;
+    this.tripService = tripService;
   }
   
   @GetMapping
@@ -37,8 +39,7 @@ public class TripController {
 
   @PostMapping()
   public Trip createTrip(@RequestBody TripDto tripDto){
-    Trip trip = new Trip();
-    return trip;
+    return tripService.createTrip(tripDto);
   }
 
   @DeleteMapping({"/{id}"})
