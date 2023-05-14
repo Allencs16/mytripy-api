@@ -27,7 +27,7 @@ public class Vehicles {
 
   private String brand;
 
-  private Double kmAvaragePerLiter;
+  private Double kmAveragePerLiter;
 
   private Double maxDistance;
 

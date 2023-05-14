@@ -2,6 +2,7 @@ package com.breallencs.mytripyapi.modules.expenses;
 
 import java.time.LocalDateTime;
 
+import com.breallencs.mytripyapi.enums.BudgetCategory;
 import com.breallencs.mytripyapi.modules.week.Week;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -26,7 +27,7 @@ public class Expenses {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String type;
+  private BudgetCategory type;
 
   private Double value;
 
