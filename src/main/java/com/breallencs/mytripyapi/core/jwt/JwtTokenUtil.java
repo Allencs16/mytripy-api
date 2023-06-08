@@ -47,6 +47,6 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(60).toInstant(ZoneOffset.of("-03:00"));
     }
 }

@@ -1,5 +1,6 @@
 package com.breallencs.mytripyapi.modules.trip;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,11 @@ public class TripController {
   @GetMapping({"/user/{id}"})
   public List<Trip> getTripsByUserId(@PathVariable Long id){
     return tripRepository.findByUserId(id);
+  }
+
+  @GetMapping({"/user/{id}/{date}"})
+  public Trip getTripByDateAndUser(@PathVariable Long id, @PathVariable LocalDate date){
+    return tripRepository.findByUserIdAndStartDay(id, date);
   }
 
   @PostMapping()
