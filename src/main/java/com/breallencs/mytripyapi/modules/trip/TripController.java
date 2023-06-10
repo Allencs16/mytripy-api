@@ -40,7 +40,7 @@ public class TripController {
 
   @GetMapping({"/user/{id}/{date}"})
   public Trip getTripByDateAndUser(@PathVariable Long id, @PathVariable LocalDate date){
-    return tripRepository.findByUserIdAndStartDay(id, date);
+    return tripRepository.getByUserAndStartDay(id, date);
   }
 
   @PostMapping()

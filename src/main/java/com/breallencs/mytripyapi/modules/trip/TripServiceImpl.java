@@ -43,6 +43,8 @@ public class TripServiceImpl implements TripService{
     trip.setPrice(tripDto.getPrice());
     trip.setState(tripDto.getState());
     trip.setName(tripDto.getName());
+    trip.setStartDay(tripDto.getStartDay());
+    trip.setEndDay(tripDto.getEndDay());
 
     tripRepository.saveAndFlush(trip);
     
