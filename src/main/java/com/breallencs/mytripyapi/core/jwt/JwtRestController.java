@@ -21,6 +21,8 @@ import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenResponse;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.user.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class JwtRestController {
@@ -62,5 +64,17 @@ public class JwtRestController {
 		Objects.requireNonNull(password);
   
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+	}
+
+	
+
+	@RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.POST)
+	public Boolean isTokenExpired(HttpServletRequest request){
+
+		String token = request.getHeader(tokenHeader);
+
+		System.out.println(jwtTokenUtil.getSubject(token));
+
+		return true;
 	}
 }
