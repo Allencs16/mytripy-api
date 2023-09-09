@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -69,12 +70,13 @@ public class JwtRestController {
 	
 
 	@RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.POST)
-	public Boolean isTokenExpired(HttpServletRequest request){
-
+	public ResponseEntity<String> isTokenExpired(HttpServletRequest request){
 		String token = request.getHeader(tokenHeader);
-
-		System.out.println(jwtTokenUtil.getSubject(token));
-
-		return true;
+		String tokenWithoutBearer = token.replace("Bearer ", "");
+		if(jwtTokenUtil.isTokenExpired(tokenWithoutBearer)){
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is expired");
+		} else {
+			return ResponseEntity.ok("Token is valid");
+		}
 	}
 }
