@@ -3,6 +3,7 @@ package com.breallencs.mytripyapi.modules.user;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.breallencs.mytripyapi.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -38,5 +39,7 @@ public class User implements Serializable{
   private LocalDateTime CreatedAt;
 
   private Boolean isActive;
+
+  private UserType userType;
 
 }
