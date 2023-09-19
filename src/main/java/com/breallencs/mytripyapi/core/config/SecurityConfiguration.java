@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.breallencs.mytripyapi.core.jwt.JwtUnAuthorizedResponseAuthenticationEntryPoint;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,14 +23,21 @@ public class SecurityConfiguration{
 
   @Autowired
   private SecurityFilter securityFilter;
+
+  @Autowired
+  private JwtUnAuthorizedResponseAuthenticationEntryPoint jwtUnAuthorizedResponseAuthenticationEntryPoint;
   
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    http.exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint);
+
     return http.csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeHttpRequests()
       .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
       .requestMatchers(HttpMethod.POST, "/public/user/create").permitAll()
+      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
       .anyRequest().authenticated()
       .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();

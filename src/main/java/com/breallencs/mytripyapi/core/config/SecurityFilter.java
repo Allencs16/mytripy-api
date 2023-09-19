@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.breallencs.mytripyapi.core.jwt.JwtTokenUtil;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -32,6 +33,14 @@ public class SecurityFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
+    Enumeration<String> headerNames = request.getHeaderNames();
+
+
+    if (headerNames != null) {
+            while (headerNames.hasMoreElements()) {
+                    System.out.println("Header: " + request.getHeader(headerNames.nextElement()));
+            }
+    }
     boolean isPublic = false;
     if(request.getRequestURL().toString().contains("/authenticate")){
       isPublic = true;
