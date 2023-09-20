@@ -9,10 +9,14 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.breallencs.mytripyapi.core.jwt.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 
@@ -32,12 +36,11 @@ public class SecurityConfiguration{
 
     http.exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint);
 
-    return http.csrf().disable()
+    return http.cors().disable().csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeHttpRequests()
       .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
       .requestMatchers(HttpMethod.POST, "/public/user/create").permitAll()
-      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
       .anyRequest().authenticated()
       .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();
@@ -51,6 +54,20 @@ public class SecurityConfiguration{
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
     return configuration.getAuthenticationManager();
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource(){
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.setAllowCredentials(true);
+    config.addAllowedOrigin("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    config.addAllowedOrigin("http://localhost:4200");
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
   }
 
   @Bean
