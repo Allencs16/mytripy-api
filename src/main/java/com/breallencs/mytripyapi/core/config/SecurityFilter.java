@@ -54,7 +54,6 @@ public class SecurityFilter extends OncePerRequestFilter {
   }
  
   private String recuperaToken(HttpServletRequest request) {
-    System.out.println(request.getHeader("Authorization"));
     var authorizationHeader = request.getHeader("Authorization");
     if(authorizationHeader == null){
       throw new RuntimeException("Token is not present");

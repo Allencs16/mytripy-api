@@ -36,7 +36,7 @@ public class PathMatchingConfigurationAdapter implements WebMvcConfigurer{
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-    	registry.addMapping("/**").allowedMethods("OPTIONS","GET", "POST", "PUT", "DELETE").allowedOrigins("*")
+    	registry.addMapping("/**").allowedMethods("OPTIONS","GET", "POST", "PUT", "DELETE").allowedOrigins("http://localhost:4200")
         .allowedHeaders("*");
     }
 

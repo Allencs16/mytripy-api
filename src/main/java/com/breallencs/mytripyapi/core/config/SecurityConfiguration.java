@@ -36,7 +36,7 @@ public class SecurityConfiguration{
 
     http.exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint);
 
-    return http.cors().disable().csrf().disable()
+    return http.csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().authorizeHttpRequests()
       .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
@@ -60,8 +60,6 @@ public class SecurityConfiguration{
   CorsConfigurationSource corsConfigurationSource(){
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     config.addAllowedOrigin("http://localhost:4200");
