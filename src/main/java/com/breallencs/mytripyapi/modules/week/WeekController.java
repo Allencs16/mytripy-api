@@ -25,7 +25,7 @@ public class WeekController {
 
   @GetMapping
   public List<Week> getWeeks(){
-    return weekRepository.findAll();
+    return weekService.getWeek();
   }
 
   @GetMapping(path = "/{userId}")

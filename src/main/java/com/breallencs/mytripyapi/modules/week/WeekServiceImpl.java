@@ -1,5 +1,9 @@
 package com.breallencs.mytripyapi.modules.week;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +42,25 @@ public class WeekServiceImpl implements WeekService{
     weekRepository.save(week);
     
     return ResponseEntity.ok(week);
+  }
+
+  @Override
+  public List<Week> getWeek() {
+    List<Week> weeksFromDb = weekRepository.findAll();
+
+    LocalDate nowDate = LocalDate.now();
+
+    for (Week week : weeksFromDb) {
+      if(week.getEndDate().isBefore(nowDate)){
+        week.setCurrent(false);
+        weekRepository.saveAndFlush(week);
+      } else if(week.getStartDate().isBefore(nowDate)){
+        week.setCurrent(true);
+        weekRepository.saveAndFlush(week);
+      }
+    }
+
+    return weeksFromDb;
   }
   
 }
