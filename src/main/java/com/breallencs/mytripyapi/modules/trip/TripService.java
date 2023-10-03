@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service;
 public interface TripService {
   
   Trip createTrip(TripDto tripDto);
+
+  TripQuantitativesDTO totalKmByMonth();
 }

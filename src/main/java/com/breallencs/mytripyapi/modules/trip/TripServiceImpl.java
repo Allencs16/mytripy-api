@@ -1,5 +1,8 @@
 package com.breallencs.mytripyapi.modules.trip;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.breallencs.mytripyapi.modules.user.UserRepository;
@@ -49,6 +52,25 @@ public class TripServiceImpl implements TripService{
     tripRepository.saveAndFlush(trip);
     
     return trip;
+  }
+
+  @Override
+  public TripQuantitativesDTO totalKmByMonth() {
+    Double totalKm = 0.0;
+    LocalDate date = LocalDate.now();
+    TripQuantitativesDTO tripQuantitativesDTO = new TripQuantitativesDTO();
+
+    List<Trip> listTrip = tripRepository.findAll();
+
+    for(Trip trip : listTrip){
+      if(trip.getEndDay().getMonthValue() == date.getMonthValue()){
+        totalKm += trip.getDistanceFromSource();
+      }
+    }
+
+    tripQuantitativesDTO.setTotalKm(totalKm);
+
+    return tripQuantitativesDTO;
   }
   
 }

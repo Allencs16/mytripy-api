@@ -38,6 +38,11 @@ public class TripController {
     return tripRepository.findByUserId(id);
   }
 
+  @GetMapping({"/totalKm"})
+  public TripQuantitativesDTO getTotalKmByMonth(){
+    return tripService.totalKmByMonth();
+  }
+
   @GetMapping({"/user/{id}/{date}"})
   public Trip getTripByDateAndUser(@PathVariable Long id, @PathVariable LocalDate date){
     return tripRepository.getByUserAndStartDay(id, date);
