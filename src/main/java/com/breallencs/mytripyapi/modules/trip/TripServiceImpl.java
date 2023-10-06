@@ -36,10 +36,6 @@ public class TripServiceImpl implements TripService{
     }
     week.setTotalKm(week.getTotalKm() + tripDto.getDistanceFromSource());
 
-    if(tripRepository.findByStartDayAndUserId(tripDto.getStartDay(), tripDto.getUserId()).isPresent()){
-      return ResponseEntity.badRequest().body("Usuário já tem uma viagem nessa data");
-    }
-
     Trip trip = new Trip();
     trip.setWeek(week);
     trip.setUser(userRepository.findById(tripDto.getUserId()));
