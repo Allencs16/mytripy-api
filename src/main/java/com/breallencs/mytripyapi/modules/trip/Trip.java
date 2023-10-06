@@ -38,8 +38,6 @@ public class Trip {
 
   private Double distanceFromSource;
 
-  private Double price;
-
   private String place;
 
   private Double food;

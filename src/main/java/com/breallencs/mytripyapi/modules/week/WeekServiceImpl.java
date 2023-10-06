@@ -23,6 +23,10 @@ public class WeekServiceImpl implements WeekService{
   @Override
   public ResponseEntity<?> createNewWeek(WeekDTO weekDTO) {
     Week newWeek = new Week();
+
+    if (weekRepository.findByStartDateAndUserId(weekDTO.getStartDate(), weekDTO.getUserId()).isPresent()) {
+      return ResponseEntity.badRequest().body("Já existe uma semana nessa data inicio para esse Usuário");
+    }
     
     newWeek.setUser(userRepository.findById(weekDTO.getUserId()));
     newWeek.setStartDate(weekDTO.getStartDate());

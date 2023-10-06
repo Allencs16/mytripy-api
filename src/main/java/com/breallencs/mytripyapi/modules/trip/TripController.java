@@ -49,7 +49,7 @@ public class TripController {
   }
 
   @PostMapping()
-  public Trip createTrip(@RequestBody TripDto tripDto){
+  public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto){
     return tripService.createTrip(tripDto);
   }
 

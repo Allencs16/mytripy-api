@@ -3,6 +3,7 @@ package com.breallencs.mytripyapi.modules.trip;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.breallencs.mytripyapi.modules.user.UserRepository;
@@ -26,7 +27,7 @@ public class TripServiceImpl implements TripService{
   }
 
   @Override
-  public Trip createTrip(TripDto tripDto) {
+  public ResponseEntity<?> createTrip(TripDto tripDto) {
 
     Week week = weekRepository.findById(tripDto.getWeekId()).get();
 
@@ -34,6 +35,10 @@ public class TripServiceImpl implements TripService{
       week.setTotalKm(0.0);
     }
     week.setTotalKm(week.getTotalKm() + tripDto.getDistanceFromSource());
+
+    if(tripRepository.findByStartDayAndUserId(tripDto.getStartDay(), tripDto.getUserId()).isPresent()){
+      return ResponseEntity.badRequest().body("Usuário já tem uma viagem nessa data");
+    }
 
     Trip trip = new Trip();
     trip.setWeek(week);
@@ -43,7 +48,6 @@ public class TripServiceImpl implements TripService{
     trip.setDistanceFromSource(tripDto.getDistanceFromSource());
     trip.setPlace(tripDto.getPlace());
     trip.setFood(tripDto.getFood());
-    trip.setPrice(tripDto.getPrice());
     trip.setState(tripDto.getState());
     trip.setName(tripDto.getName());
     trip.setStartDay(tripDto.getStartDay());
@@ -51,12 +55,13 @@ public class TripServiceImpl implements TripService{
 
     tripRepository.saveAndFlush(trip);
     
-    return trip;
+    return ResponseEntity.ok().body(trip);
   }
 
   @Override
   public TripQuantitativesDTO totalKmByMonth() {
     Double totalKm = 0.0;
+    Double totalPrice = 0.0;
     LocalDate date = LocalDate.now();
     TripQuantitativesDTO tripQuantitativesDTO = new TripQuantitativesDTO();
 
@@ -64,11 +69,25 @@ public class TripServiceImpl implements TripService{
 
     for(Trip trip : listTrip){
       if(trip.getEndDay().getMonthValue() == date.getMonthValue()){
-        totalKm += trip.getDistanceFromSource();
+        if(trip.getDistanceFromSource() != null){
+          totalKm += trip.getDistanceFromSource();
+        }
       }
     }
 
     tripQuantitativesDTO.setTotalKm(totalKm);
+
+    List<Week> listWeek = weekRepository.findAll();
+
+    for(Week week : listWeek){
+      if(week.getStartDate().getMonthValue() == date.getMonthValue()){
+        if(week.getTotalPrice() != null){
+          totalPrice += week.getTotalPrice();
+        }
+      }
+    }
+
+    tripQuantitativesDTO.setTotalPrice(totalPrice);
 
     return tripQuantitativesDTO;
   }
