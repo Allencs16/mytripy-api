@@ -2,6 +2,8 @@ package com.breallencs.mytripyapi.modules.user;
 
 import java.time.LocalDateTime;
 
+import com.breallencs.mytripyapi.enums.UserType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +22,6 @@ public class UserDTO {
   private String email;
 
   private String password;
+  
+  private UserType userType;
 }

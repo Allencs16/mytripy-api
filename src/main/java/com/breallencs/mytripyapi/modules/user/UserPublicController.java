@@ -3,6 +3,8 @@ package com.breallencs.mytripyapi.modules.user;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.breallencs.mytripyapi.enums.UserType;
+
 import java.time.LocalDateTime;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +33,11 @@ public class UserPublicController {
     userNew.setName(user.getName());
     userNew.setCreatedAt(LocalDateTime.now());
     userNew.setIsActive(true);
+
+    if(user.getUserType() == null){
+      userNew.setUserType(UserType.VIAJANTE);
+    }
+
     userRepository.saveAndFlush(userNew);
     
     return userNew;

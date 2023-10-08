@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.breallencs.mytripyapi.enums.UserType;
+
 @RestController
 @RequestMapping({"/user"})
 public class UserController {
@@ -25,6 +27,11 @@ public class UserController {
   @GetMapping
   public List<User> findAll(){
     return userRepository.findAll();
+  }
+
+  @GetMapping(path = "/tipoUsuario/{userType}")
+  public List<User> findByUserType(@PathVariable UserType userType){
+    return userRepository.findUserByUserType(userType);
   }
 
   @DeleteMapping(path = "/{id}")
