@@ -24,7 +24,7 @@ public class WeekController {
   }
 
   @GetMapping
-  public List<Week> getWeeks(){
+  public List<WeekDTO> getWeeks(){
     return weekService.getWeek();
   }
 

@@ -1,15 +1,19 @@
 package com.breallencs.mytripyapi.modules.week;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.breallencs.mytripyapi.modules.expenses.Expenses;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,9 +34,9 @@ public class Week {
 
   private Double totalKm;
 
-  private Double budget;
+  private Double totalBudget;
 
-  private Double expenses;
+  private Double totalExpenses;
 
   private LocalDate startDate;
 
@@ -42,4 +46,7 @@ public class Week {
 
   @ManyToOne
   private User user;
+
+  @OneToMany(mappedBy = "week", fetch = FetchType.EAGER)
+  private List<Expenses> expenses;
 }

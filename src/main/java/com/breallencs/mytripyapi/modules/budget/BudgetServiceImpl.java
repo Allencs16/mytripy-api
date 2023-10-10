@@ -33,7 +33,7 @@ public class BudgetServiceImpl implements BudgetService{
     budget.setValue(budgetDTO.getValue());
     budget.setWeek(week);
 
-    week.setBudget(budgetTotal + budgetDTO.getValue());
+    week.setTotalBudget(budgetTotal + budgetDTO.getValue());
     week.setTotalPrice(budgetTotal + budgetDTO.getValue());
 
     weekRepository.save(week);
@@ -45,7 +45,7 @@ public class BudgetServiceImpl implements BudgetService{
   public ResponseEntity<?> deleteBudget(Budget budget) {
     Double budgetTotal = budgetRepository.totalByWeek(budget.getWeek().getId());
     Week week = weekRepository.findById(budget.getWeek().getId()).get();
-    week.setBudget(budgetTotal - budget.getValue());
+    week.setTotalBudget(budgetTotal - budget.getValue());
     week.setTotalPrice(week.getTotalPrice() - budget.getValue());
     budgetRepository.deleteById(budget.getId());
     return ResponseEntity.ok().body("Deleted sucefully");
@@ -56,13 +56,13 @@ public class BudgetServiceImpl implements BudgetService{
     Budget budget = budgetRepository.findById(budgetDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Budget not found"));
     Week week = weekRepository.findById(budgetDTO.getWeekId()).get();
 
-    week.setBudget(week.getBudget() - budget.getValue());
+    week.setTotalBudget(week.getTotalBudget() - budget.getValue());
     week.setTotalPrice(week.getTotalPrice() - budget.getValue());
 
     budget.setType(BudgetCategory.verifyCategory(budgetDTO.getType()));
     budget.setValue(budgetDTO.getValue());
 
-    week.setBudget(week.getBudget() + budget.getValue());
+    week.setTotalBudget(week.getTotalBudget() + budget.getValue());
     week.setTotalPrice(week.getTotalPrice() + budget.getValue());
 
     budgetRepository.saveAndFlush(budget);

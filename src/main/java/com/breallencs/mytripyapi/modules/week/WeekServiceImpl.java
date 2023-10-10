@@ -27,11 +27,13 @@ public class WeekServiceImpl implements WeekService{
     if (weekRepository.findByStartDateAndUserId(weekDTO.getStartDate(), weekDTO.getUserId()).isPresent()) {
       return ResponseEntity.badRequest().body("Já existe uma semana nessa data inicio para esse Usuário");
     }
-    
+
+    newWeek.setTotalKm(0.0);
+    newWeek.setTotalBudget(0.0);
+    newWeek.setTotalExpenses(0.0);
     newWeek.setUser(userRepository.findById(weekDTO.getUserId()));
     newWeek.setStartDate(weekDTO.getStartDate());
     newWeek.setEndDate(weekDTO.getEndDate());
-    newWeek.setCurrent(true);
     weekRepository.save(newWeek);
 
     return ResponseEntity.ok(newWeek);
@@ -49,22 +51,8 @@ public class WeekServiceImpl implements WeekService{
   }
 
   @Override
-  public List<Week> getWeek() {
-    List<Week> weeksFromDb = weekRepository.findAll();
-
-    LocalDate nowDate = LocalDate.now();
-
-    for (Week week : weeksFromDb) {
-      if(week.getEndDate().isBefore(nowDate)){
-        week.setCurrent(false);
-        weekRepository.saveAndFlush(week);
-      } else if(week.getStartDate().isBefore(nowDate)){
-        week.setCurrent(true);
-        weekRepository.saveAndFlush(week);
-      }
-    }
-
-    return weeksFromDb;
+  public List<WeekDTO> getWeek() {
+    return weekRepository.getAllWeeks();
   }
   
 }

@@ -12,5 +12,5 @@ public interface WeekService {
 
   ResponseEntity<?> disableWeek(Long weekId);
 
-  List<Week> getWeek();
+  List<WeekDTO> getWeek();
 }

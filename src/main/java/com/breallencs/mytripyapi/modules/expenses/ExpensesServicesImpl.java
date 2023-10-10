@@ -25,13 +25,13 @@ public class ExpensesServicesImpl implements ExpensesServices{
     Expenses expenses = new Expenses();
     Week week = weekRepository.findById(expensesDTO.getWeekId()).orElseThrow(() -> new IllegalArgumentException("Não Encontrado"));
 
-    if (week.getExpenses() == null) {
-      week.setExpenses(expensesDTO.getValue());
+    if (week.getTotalExpenses() == null) {
+      week.setTotalExpenses(totalExpenses);
     } else {
-      week.setExpenses(totalExpenses + expensesDTO.getValue());
+      week.setTotalExpenses(totalExpenses + expensesDTO.getValue());
     }
 
-    week.setBudget(week.getBudget() - expensesDTO.getValue());
+    week.setTotalBudget(week.getTotalBudget() - expensesDTO.getValue());
 
     expenses.setExpenseDate(expensesDTO.getExpenseDate());
     expenses.setType(BudgetCategory.verifyCategory(expensesDTO.getType()));
