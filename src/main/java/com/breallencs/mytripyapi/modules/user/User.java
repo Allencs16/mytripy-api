@@ -36,7 +36,9 @@ public class User implements Serializable{
   @JsonIgnore
   private String password;
   
-  private LocalDateTime CreatedAt;
+  private LocalDateTime createdAt;
+
+  private LocalDateTime updatedAt;
 
   private Boolean isActive;
 

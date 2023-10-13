@@ -32,7 +32,7 @@ public class UserPublicController {
     userNew.setEmail(user.getEmail());
     userNew.setName(user.getName());
     userNew.setCreatedAt(LocalDateTime.now());
-    userNew.setIsActive(true);
+    userNew.setIsActive(false);
 
     if(user.getUserType() == null){
       userNew.setUserType(UserType.VIAJANTE);
