@@ -43,6 +43,11 @@ public class UserController {
     return userService.editUser(userDTO);
   }
 
+  @PutMapping(path = "/activate/{userId}")
+  public User activateUser(@PathVariable Long userId, @RequestBody boolean isActive){
+    return userService.activateUser(userId, isActive);
+  }
+
   @DeleteMapping(path = "/{id}")
   public User deleteUser(@PathVariable Long id){
     User user = userRepository.findById(id);

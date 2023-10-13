@@ -22,6 +22,18 @@ public class UserServiceImpl implements UserService{
     userFromDatabase.setUpdatedAt(LocalDateTime.now());
     userFromDatabase.setUserType(userDTO.getUserType());
     userFromDatabase.setName(userDTO.getName());
+    userFromDatabase.setIsActive(userDTO.isUserActive());
+
+    userRepository.saveAndFlush(userFromDatabase);
+
+    return userFromDatabase;
+  }
+
+  @Override
+  public User activateUser(Long userId, boolean isActive) {
+    User userFromDatabase = userRepository.findById(userId);
+
+    userFromDatabase.setIsActive(isActive);
 
     userRepository.saveAndFlush(userFromDatabase);
 

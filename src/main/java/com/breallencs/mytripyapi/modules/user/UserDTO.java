@@ -23,4 +23,6 @@ public class UserDTO {
   private UserType userType;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private boolean isAtivo;
+  private boolean userActive;
 }

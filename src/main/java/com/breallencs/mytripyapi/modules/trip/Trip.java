@@ -40,13 +40,9 @@ public class Trip {
 
   private String place;
 
-  // fica pelas despesas gastos
-  private Double food;
-
   private LocalDate startDay;
 
   private LocalDate endDay;
-  
 
   // retirar Usuario já tem em semana
   @OneToOne

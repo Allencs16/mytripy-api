@@ -43,7 +43,6 @@ public class TripServiceImpl implements TripService{
     trip.setDescription(tripDto.getDescription());
     trip.setDistanceFromSource(tripDto.getDistanceFromSource());
     trip.setPlace(tripDto.getPlace());
-    trip.setFood(tripDto.getFood());
     trip.setState(tripDto.getState());
     trip.setName(tripDto.getName());
     trip.setStartDay(tripDto.getStartDay());
