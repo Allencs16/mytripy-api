@@ -18,11 +18,12 @@ public class UserServiceImpl implements UserService{
   @Override
   public User editUser(UserDTO userDTO) {
     User userFromDatabase = userRepository.findById(userDTO.getId());
+    System.out.println(userDTO.isActive());
 
     userFromDatabase.setUpdatedAt(LocalDateTime.now());
     userFromDatabase.setUserType(userDTO.getUserType());
     userFromDatabase.setName(userDTO.getName());
-    userFromDatabase.setIsActive(userDTO.isUserActive());
+    userFromDatabase.setActive(userDTO.isActive());
 
     userRepository.saveAndFlush(userFromDatabase);
 
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService{
   public User activateUser(Long userId, boolean isActive) {
     User userFromDatabase = userRepository.findById(userId);
 
-    userFromDatabase.setIsActive(isActive);
+    userFromDatabase.setActive(isActive);
 
     userRepository.saveAndFlush(userFromDatabase);
 

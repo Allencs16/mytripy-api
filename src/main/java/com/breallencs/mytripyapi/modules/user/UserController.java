@@ -38,6 +38,11 @@ public class UserController {
     return userRepository.findUserByUserType(userType);
   }
 
+  @GetMapping(path = "/tipoUsuario/{userType}/ativo")
+  public List<User> findByUserTypeAndActive(@PathVariable UserType userType){
+    return userRepository.findUserByUserTypeAndActive(userType, true);
+  }
+
   @PutMapping(path = "/editar")
   public User editUser(@RequestBody UserDTO userDTO){
     return userService.editUser(userDTO);

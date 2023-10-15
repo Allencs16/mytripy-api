@@ -25,7 +25,7 @@ public class BudgetServiceImpl implements BudgetService{
     
     Double budgetTotal = budgetRepository.totalByWeek(budgetDTO.getWeekId());
 
-    Week week = weekRepository.findById(budgetDTO.getWeekId()).get();
+    Week week = weekRepository.findById(budgetDTO.getWeekId()).orElseThrow(() -> new IllegalArgumentException("Não encontrado"));
 
     Budget budget = new Budget();
 
@@ -33,7 +33,7 @@ public class BudgetServiceImpl implements BudgetService{
     budget.setValue(budgetDTO.getValue());
     budget.setWeek(week);
 
-    week.setTotalBudget(budgetTotal + budgetDTO.getValue());
+    week.setTotalBudget(week.getTotalBudget() + budgetDTO.getValue());
     week.setTotalPrice(budgetTotal + budgetDTO.getValue());
 
     weekRepository.save(week);

@@ -3,6 +3,7 @@ package com.breallencs.mytripyapi.modules.week;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.breallencs.mytripyapi.modules.budget.Budget;
 import com.breallencs.mytripyapi.modules.expenses.Expenses;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -49,4 +50,7 @@ public class Week {
 
   @OneToMany(mappedBy = "week", fetch = FetchType.EAGER)
   private List<Expenses> expenses;
+
+  @OneToMany(mappedBy = "week", fetch = FetchType.EAGER)
+  private List<Budget> budgets;
 }

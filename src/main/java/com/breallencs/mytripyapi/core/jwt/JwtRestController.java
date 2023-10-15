@@ -50,6 +50,12 @@ public class JwtRestController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest) throws AuthenticationException {
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		User user = userRepository.findByEmail(authenticationRequest.getUsername()).get();
+
+		if(!user.getActive()){
+			return ResponseEntity.status(401).body("Usuário desativado.");
+		}
+	
 		var jsonResponse = new JwtTokenResponse();
     
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

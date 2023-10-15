@@ -54,5 +54,23 @@ public class WeekServiceImpl implements WeekService{
   public List<WeekDTO> getWeek() {
     return weekRepository.getAllWeeks();
   }
+
+  @Override
+  public WeekQuantitativesDTO getQuantitatives() {
+    LocalDate today = LocalDate.now();
+    LocalDate firstDay = today.withDayOfMonth(1);
+    LocalDate lastDay = today.withDayOfMonth(firstDay.getMonth().length(today.isLeapYear()));
+    WeekQuantitativesDTO weekQuantitativesDTO = new WeekQuantitativesDTO();
+    List<Week> weekLists = weekRepository.findAll();
+
+    for(Week week : weekLists){
+      if(week.getStartDate().isAfter(firstDay) || week.getEndDate().isBefore(lastDay)){
+        weekQuantitativesDTO.setTotalKm(weekQuantitativesDTO.getTotalKm() + week.getTotalKm());
+        weekQuantitativesDTO.setTotalPrice(weekQuantitativesDTO.getTotalPrice() + week.getTotalExpenses());
+      }
+    }
+    
+    return weekQuantitativesDTO;
+  }
   
 }

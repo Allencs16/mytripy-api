@@ -40,7 +40,7 @@ public class User implements Serializable{
 
   private LocalDateTime updatedAt;
 
-  private Boolean isActive;
+  private Boolean active;
 
   private UserType userType;
 

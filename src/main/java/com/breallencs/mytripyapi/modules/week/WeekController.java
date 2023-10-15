@@ -33,6 +33,11 @@ public class WeekController {
     return weekRepository.findByUserId(userId);
   }
 
+  @GetMapping(path = "/quantitatives")
+  public WeekQuantitativesDTO getQuantitatives(){
+    return weekService.getQuantitatives();
+  }
+
   @PostMapping
   public ResponseEntity<?> createNewWeek(@RequestBody WeekDTO weekDTO){
     return weekService.createNewWeek(weekDTO);
