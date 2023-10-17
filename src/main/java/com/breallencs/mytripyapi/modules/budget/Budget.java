@@ -1,5 +1,7 @@
 package com.breallencs.mytripyapi.modules.budget;
 
+import java.time.LocalDateTime;
+
 import com.breallencs.mytripyapi.enums.BudgetCategory;
 import com.breallencs.mytripyapi.modules.week.Week;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -32,4 +34,6 @@ public class Budget {
   @ManyToOne
   @JsonBackReference
   private Week week;
+
+  private LocalDateTime dateOfBudget;
 }

@@ -1,5 +1,6 @@
 package com.breallencs.mytripyapi.modules.budget;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class BudgetServiceImpl implements BudgetService{
     budget.setType(BudgetCategory.verifyCategory(budgetDTO.getType()));
     budget.setValue(budgetDTO.getValue());
     budget.setWeek(week);
+    budget.setDateOfBudget(LocalDateTime.now());
 
     week.setTotalBudget(week.getTotalBudget() + budgetDTO.getValue());
     week.setTotalPrice(budgetTotal + budgetDTO.getValue());
