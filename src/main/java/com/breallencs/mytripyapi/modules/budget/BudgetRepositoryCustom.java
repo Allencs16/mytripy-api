@@ -7,4 +7,7 @@ public interface BudgetRepositoryCustom {
   List<BudgetDTO> getByWeek(Long weekId);
 
   Double totalByWeek(Long weekId);
+
+  List<BudgetDTO> getAllBudgets();
+
 }

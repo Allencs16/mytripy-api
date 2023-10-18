@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.week.Week;
+import com.breallencs.mytripyapi.modules.week.WeekDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -60,6 +62,24 @@ public class BudgetRepositoryImpl implements BudgetRepositoryCustom{
 
 
     return total == null ? 0 : total;
+  }
+
+  @Override
+  public List<BudgetDTO> getAllBudgets() {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<BudgetDTO> cq = cb.createQuery(BudgetDTO.class);
+    Root<Budget> budget = cq.from(Budget.class);
+
+    Join<Budget, Week> week = budget.join("week", JoinType.INNER);
+
+    cq.multiselect(
+      budget.get("id"),
+      budget.get("type"),
+      budget.get("value"),
+      week.get("week")
+    );
+
+    return entityManager.createQuery(cq).getResultList();
   }
   
 }
