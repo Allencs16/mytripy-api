@@ -21,6 +21,8 @@ import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenRequest;
 import com.breallencs.mytripyapi.core.jwt.resources.JwtTokenResponse;
 import com.breallencs.mytripyapi.modules.user.User;
 import com.breallencs.mytripyapi.modules.user.UserRepository;
+import com.breallencs.mytripyapi.modules.userLogin.UserLoginRepository;
+import com.breallencs.mytripyapi.modules.userLogin.UserLoginService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -46,6 +48,9 @@ public class JwtRestController {
   @Autowired
   private UserRepository userRepository;
 
+	@Autowired 
+	UserLoginService userLoginService;
+
   @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest) throws AuthenticationException {
 
@@ -62,6 +67,8 @@ public class JwtRestController {
 
 		var token = jwtTokenUtil.gerarToken(userDetails);
 		jsonResponse.setToken(token);
+
+		userLoginService.createUserLogin(user);
     
 		return ResponseEntity.ok(jsonResponse);
 	}
