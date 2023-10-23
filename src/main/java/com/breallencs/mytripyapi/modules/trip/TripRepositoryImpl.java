@@ -1,6 +1,7 @@
 package com.breallencs.mytripyapi.modules.trip;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.breallencs.mytripyapi.modules.user.User;
 
@@ -19,7 +20,7 @@ public class TripRepositoryImpl implements TripRepositoryCustom{
   }
 
   @Override
-  public Trip getByUserAndStartDay(Long userId, LocalDate startDay) {
+  public List<Trip> getByUserAndStartDay(Long userId, LocalDate startDay) {
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Trip> cq = cb.createQuery(Trip.class);
     Root<Trip> trip = cq.from(Trip.class);
@@ -31,7 +32,7 @@ public class TripRepositoryImpl implements TripRepositoryCustom{
       cb.equal(user.get("id"), userId)
     );
 
-    return entityManager.createQuery(cq).getSingleResult();
+    return entityManager.createQuery(cq).getResultList();
   }
   
 }

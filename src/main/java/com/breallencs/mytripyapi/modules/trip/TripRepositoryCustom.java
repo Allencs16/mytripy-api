@@ -1,9 +1,10 @@
 package com.breallencs.mytripyapi.modules.trip;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TripRepositoryCustom {
 
-  Trip getByUserAndStartDay(Long userId, LocalDate startDay);
+  List<Trip> getByUserAndStartDay(Long userId, LocalDate startDay);
   
 }
