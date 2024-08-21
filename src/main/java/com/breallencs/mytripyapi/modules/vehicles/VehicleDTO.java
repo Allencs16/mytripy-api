@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class VehicleDTO {
+
+  private Long id;
   
   private String name;
 

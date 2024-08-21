@@ -1,0 +1,7 @@
+{
+  "java.test.config": {
+    "name": "myTripyConfig",
+    "vmArgs": ["-Xmx512M"],
+    "env": {"key": "value"}
+  }
+}

@@ -27,6 +27,8 @@ public class User implements Serializable{
 
   private String name;
 
+  private Boolean cacheData;
+
   private String username;
 
   @Column(nullable = false, unique = true)

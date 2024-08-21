@@ -31,7 +31,7 @@ public class WeekDTO {
   private LocalDate startDate;
   private LocalDate endDate;
   private boolean isCurrent;
-  private String user;
+  private String userName;
   private Long userId;
 
   public WeekDTO(Long id, Double totalPrice, Double totalKm, Double totalBudget, Double totalExpenses,
@@ -44,6 +44,6 @@ public class WeekDTO {
     this.startDate = startDate;
     this.endDate = endDate;
     this.isCurrent = (LocalDate.now().isAfter(startDate) && LocalDate.now().isBefore(endDate));
-    this.user = user;
+    this.userName = user;
   }
 }
